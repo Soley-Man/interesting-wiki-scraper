@@ -3,8 +3,11 @@ from bs4 import BeautifulSoup
 import random
 
 starting_url = "https://en.wikipedia.org/wiki/Web_scraping"
+depth_of_search = 2
 
 def crawlWikiPage(url):
+    global depth_of_search
+
     source = requests.get(url = url)
     soup = BeautifulSoup(source.content, "html.parser")
 
@@ -32,6 +35,8 @@ def crawlWikiPage(url):
             new_url = link["href"]
             break
     
-    crawlWikiPage("https://en.wikipedia.org" + new_url)
+    if depth_of_search > 0:
+        depth_of_search -= 1
+        crawlWikiPage("https://en.wikipedia.org" + new_url)
 
 crawlWikiPage(starting_url)

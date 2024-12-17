@@ -24,4 +24,8 @@ for link in allLinks:
         if link.find_parent(class_ = "reflist"):
             continue
 
+        # Exclude links in a <table> element
+        if link.find_parent("table"):
+            continue
+
         print(link["href"])

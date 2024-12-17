@@ -9,3 +9,12 @@ soup = BeautifulSoup(source.content, "html.parser")
 
 title = soup.find(id="firstHeading")
 print(title.text)
+
+allLinks = soup.find(id = "bodyContent").find_all("a")
+random.shuffle(allLinks)
+
+for link in allLinks:
+    # Only follow links that lead to another wiki page:
+    if link["href"].startswith("/wiki/"):
+
+        print(link["href"])

@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import random
+import webbrowser
 
 starting_url = input("Link to a Wikipedia page of a topic you find interesting: ")
 depth_of_search = int(input("Depth of search: "))
@@ -35,8 +36,12 @@ def crawlWikiPage(url):
             new_url = link["href"]
             break
     
+    depth_of_search -= 1
+
     if depth_of_search > 0:
-        depth_of_search -= 1
         crawlWikiPage("https://en.wikipedia.org" + new_url)
+    else:
+        # If crawler has reached the end of its crawling, open the final wikipedia page in the user's browser:
+        webbrowser.open("https://en.wikipedia.org" + new_url)
 
 crawlWikiPage(starting_url)

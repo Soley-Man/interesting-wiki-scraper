@@ -44,4 +44,10 @@ def crawlWikiPage(url):
         # If crawler has reached the end of its crawling, open the final wikipedia page in the user's browser:
         webbrowser.open("https://en.wikipedia.org" + new_url)
 
+        # and print its title:
+        source = requests.get(url = "https://en.wikipedia.org" + new_url)
+        soup = BeautifulSoup(source.content, "html.parser")
+        title = soup.find(id = "firstHeading")
+        print("\n" + title.text + "\n")
+
 crawlWikiPage(starting_url)

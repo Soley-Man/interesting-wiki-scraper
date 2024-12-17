@@ -16,7 +16,7 @@ def crawlWikiPage(url):
 
     for link in allLinks:
         # Only follow links that lead to another wiki page:
-        if link["href"].startswith("/wiki/"):
+        if link.has_attr("href") and link["href"].startswith("/wiki/"):
             # Exclude namespaces like Special:
             if ":" in link["href"]:
                 continue

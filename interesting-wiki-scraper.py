@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import random
 
-starting_url = "https://en.wikipedia.org/wiki/Web_scraping"
-depth_of_search = 2
+starting_url = input("Link to a Wikipedia page of a topic you find interesting: ")
+depth_of_search = int(input("Depth of search: "))
 
 def crawlWikiPage(url):
     global depth_of_search

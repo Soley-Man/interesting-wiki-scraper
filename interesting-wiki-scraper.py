@@ -16,5 +16,8 @@ random.shuffle(allLinks)
 for link in allLinks:
     # Only follow links that lead to another wiki page:
     if link["href"].startswith("/wiki/"):
+        # Exclude namespaces like Special:
+        if ":" in link["href"]:
+            continue
 
         print(link["href"])

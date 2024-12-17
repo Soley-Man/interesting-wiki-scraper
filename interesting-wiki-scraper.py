@@ -20,4 +20,8 @@ for link in allLinks:
         if ":" in link["href"]:
             continue
 
+        # Exclude links in the reference list
+        if link.find_parent(class_ = "reflist"):
+            continue
+
         print(link["href"])

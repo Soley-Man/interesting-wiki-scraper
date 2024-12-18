@@ -6,8 +6,10 @@ import webbrowser
 starting_url = input("Link to a Wikipedia page of a topic you find interesting: ")
 depth_of_search = int(input("Depth of search: "))
 
+runs = depth_of_search
+
 def crawlWikiPage(url):
-    global depth_of_search
+    global runs
 
     source = requests.get(url = url)
     soup = BeautifulSoup(source.content, "html.parser")
@@ -40,9 +42,9 @@ def crawlWikiPage(url):
             new_url = link["href"]
             break
     
-    depth_of_search -= 1
+    runs -= 1
 
-    if depth_of_search > 0:
+    if runs > 0:
         crawlWikiPage("https://en.wikipedia.org" + new_url)
     else:
         # If crawler has reached the end of its crawling, open the final wikipedia page in the user's browser:
@@ -55,3 +57,18 @@ def crawlWikiPage(url):
         print("\n" + title.text + "\n")
 
 crawlWikiPage(starting_url)
+
+while True:
+    command = input("Retry (R) / New (N) ").upper()
+    if command == "R":
+        runs = depth_of_search
+        crawlWikiPage(starting_url)
+        
+    elif command == "N":
+        starting_url = input("Link to a Wikipedia page of a topic you find interesting: ")
+        depth_of_search = int(input("Depth of search: "))
+        runs = depth_of_search
+        crawlWikiPage(starting_url)
+
+    elif command == "Q":
+        break

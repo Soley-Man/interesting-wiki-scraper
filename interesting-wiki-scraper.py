@@ -32,6 +32,10 @@ def crawlWikiPage(url):
             # Exclude links in a <table> element
             if link.find_parent("table"):
                 continue
+            
+            # Exclude links within a <cite> element
+            if link.find_parent("cite"):
+                continue
 
             new_url = link["href"]
             break

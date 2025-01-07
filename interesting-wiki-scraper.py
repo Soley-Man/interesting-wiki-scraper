@@ -59,7 +59,7 @@ def crawlWikiPage(url):
 crawlWikiPage(starting_url)
 
 while True:
-    command = input("Retry (R) / New (N) ").upper()
+    command = input("Repeat (R) / New (N) / Quit (Q) ").upper()
     if command == "R":
         runs = depth_of_search
         crawlWikiPage(starting_url)

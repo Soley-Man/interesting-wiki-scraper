@@ -3,10 +3,6 @@ from bs4 import BeautifulSoup
 import random
 import webbrowser
 
-starting_url = input("Link to a Wikipedia page of a topic you find interesting: ")
-depth_of_search = int(input("Depth of search: "))
-
-runs = depth_of_search
 
 def crawlWikiPage(url):
     global runs
@@ -55,6 +51,10 @@ def crawlWikiPage(url):
         soup = BeautifulSoup(source.content, "html.parser")
         title = soup.find(id = "firstHeading")
         print("\n" + title.text + "\n")
+
+starting_url = input("Link to a Wikipedia page of a topic you find interesting: ")
+depth_of_search = int(input("Depth of search: "))
+runs = depth_of_search
 
 crawlWikiPage(starting_url)
 

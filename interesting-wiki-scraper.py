@@ -4,10 +4,13 @@ import random
 import webbrowser
 
 
-def crawlWikiPage(url):
+def crawlWikiPage(wiki_url):
     global runs
 
-    source = requests.get(url = url)
+    if not wiki_url.startswith("https://en.wikipedia.org/wiki/"):
+        wiki_url = topic_to_url(wiki_url)
+
+    source = requests.get(url = wiki_url)
     soup = BeautifulSoup(source.content, "html.parser")
 
     title = soup.find(id = "firstHeading")
@@ -52,7 +55,16 @@ def crawlWikiPage(url):
         title = soup.find(id = "firstHeading")
         print("\n" + title.text + "\n")
 
-starting_url = input("Link to a Wikipedia page of a topic you find interesting: ")
+def topic_to_url(topic_name: str):
+    '''Return the url to the topic's wiki page from the topic name.'''
+
+    separate_words = topic_name.split()
+    wiki_topic_name = '_'.join(separate_words)  # Whitespaces in pages' names are substituted with _ in the url
+    wiki_url = "https://en.wikipedia.org/wiki/" + wiki_topic_name
+    
+    return wiki_url
+
+starting_url = input("Wikipedia page you find interesting: ")
 depth_of_search = int(input("Depth of search: "))
 runs = depth_of_search
 
@@ -65,7 +77,7 @@ while True:
         crawlWikiPage(starting_url)
         
     elif command == "N":
-        starting_url = input("Link to a Wikipedia page of a topic you find interesting: ")
+        starting_url = input("Wikipedia page you find interesting: ")
         depth_of_search = int(input("Depth of search: "))
         runs = depth_of_search
         crawlWikiPage(starting_url)
